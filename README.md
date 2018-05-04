@@ -107,8 +107,10 @@ prediction | fare_amount
 - Neglected to tell cluster to use nodes... so its actually just running on the master node.
 
 Bash Scripts:
+
 [Bootstrap_EMR](scripts/bootstrap-emr.sh)
   - install anaconda, boto3, pyspark, git
+  
 [Launch_cluster](scripts/lauch_cluster.sh)
 
 ## Final Results (Big Data)
