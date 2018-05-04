@@ -122,6 +122,7 @@ _**Actually ran locally to...**_
 Model: **Linear Regression**
 
 *Train:*
+
 | prediction | fare_amount |
 ----------|----------
 | 12.90 | 6.0|
@@ -131,6 +132,7 @@ Model: **Linear Regression**
 only showing top 3 rows
 
 *Test:*
+
 | prediction | fare_amount |
 ----------|-----------
 | 12.94 |        5.0 |
