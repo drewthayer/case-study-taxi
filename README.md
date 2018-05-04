@@ -122,20 +122,20 @@ _**Actually ran locally to...**_
 Model: **Linear Regression**
 
 *Train:*
-|prediction|fare_amount|
+| prediction | fare_amount |
 ----------|----------
-|12.90|        6.0|
-|11.67|        7.0|
-|12.99|        9.0|
+| 12.90 | 6.0|
+| 11.67 | 7.0|
+| 12.99 | 9.0|
 
 only showing top 3 rows
 
 *Test:*
-prediction|fare_amount
+| prediction | fare_amount |
 ----------|-----------
-|12.94|        5.0|
-|11.74|       17.5|
-|12.99|       13.0|
+| 12.94 |        5.0 |
+| 11.74 |       17.5 |
+| 12.99 |       13.0 |
 only showing top 3 rows
 
 **Train RMSE:** 26.32
