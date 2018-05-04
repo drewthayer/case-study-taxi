@@ -11,6 +11,8 @@ import pyspark as ps
 import boto3
 
 spark = ps.sql.SparkSession.builder.master('local').appName('caseStudy').getOrCreate()
+sc = spark.sparkContext
+sc.setLogLevel('ERROR')
 
 def cast_to_float(df):
     df.registerTempTable('df')
@@ -62,8 +64,7 @@ def load_file():
             key_yellow =  f'trip data/yellow_tripdata_{year}-{month}.csv'
             file = f's3a://{bucket}/{key_yellow}'
             if first:
-                df = spark.read.load(file,
-                                      format='com.databricks.spark.csv',
+                df = spark.read.csv(file,
                                       header='true',
                                       inferSchema='true')
                 first = False
