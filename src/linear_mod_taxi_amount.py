@@ -73,11 +73,12 @@ def load_file():
                                       inferSchema='true'))
     return df
 
-def open_file()
+def open_file():
     df = spark.read.load('yellow_2015-05.csv',
                       format='com.databricks.spark.csv',
                       header='true',
                       inferSchema='true')
+    return df
 
 #df = load_file()
 df = open_file()
