@@ -37,7 +37,7 @@ The yellow and green taxi trip records include fields capturing pick-up and drop
         - similar number of features to yellow cab
         - **mostly nulls**
     - YeFHV
-        - only 3 features availables (3)
+        - only 3 features available (3)
 - Inconsistencies between years
     - Payment_type
         - 2012: encoded as strings (ex CRD)
@@ -99,40 +99,71 @@ prediction | fare_amount
 
 ## Cloud Model
 
+**Workflow:**
 
+- Tried to run scripts that load directly from s3 buckets
+- ran scripts that wrote from s3 to cluster HD
+- ran processing script that ran file from model on HD
+- Neglected to tell cluster to use nodes... so its actually just running on the master node.
 
+Bash Scripts:
+[Bootstrap_EMR](scripts/bootstrap-emr.sh)
+  - install anaconda, boto3, pyspark, git
+[Launch_cluster](scripts/lauch_cluster.sh)
 
 ## Final Results (Big Data)
 
-_Model: **Linear Regression**_
-  - EMR Cluster
-  - Default parameters, no regularization
-- Results
-  - Train RMSE: 5.15
-  - Test RMSE: 3.79
+_**Actually ran locally to...**_
 
-prediction | fare_amount
-----------|-----------
-11.41|       11.0
-8.44|        8.0
-13.68|       12.5
+Model: **Linear Regression**
 
-**UODATE ABOVE**
+*Train:*
++------------------+-----------+
+|        prediction|fare_amount|
++------------------+-----------+
+|12.90|        6.0|
+|11.67|        7.0|
+|12.99|        9.0|
++------------------+-----------+
+only showing top 3 rows
 
-_Model: **Random Forests**_
-  - EMR Cluster
-  - Default parameters, no regularization
-- Results
-  - Train RMSE: 5.15
-  - Test RMSE: 3.79
+*Test:*
++------------------+-----------+
+|        prediction|fare_amount|
++------------------+-----------+
+|12.94|        5.0|
+|11.74|       17.5|
+|12.99|       13.0|
++------------------+-----------+
+only showing top 3 rows
 
-prediction | fare_amount
-----------|-----------
-11.41|       11.0
-8.44|        8.0
-13.68|       12.5
+**Train RMSE:** 26.32
+**Test RMSE:** 10.21
 
-**UODATE ABOVE**
+Model: **Random Forests**
+
+*Train:*
++------------------+-----------+
+|        prediction|fare_amount|
++------------------+-----------+
+|6.97|        5.0|
+| 6.87|        6.0|
+| 8.70|        9.0|
++------------------+-----------+
+only showing top 3 rows
+
+*Test:*
++------------------+-----------+
+|        prediction|fare_amount|
++------------------+-----------+
+|7.31|        7.0|
+| 9.80|       10.0|
+|19.70|       21.0|
++------------------+-----------+
+only showing top 3 rows
+
+*Train RMSE:* 25.20
+*Test RMSE:* 3.82
 
 [Code_Link](src/linear_mod_taxi_amount.py.py)
 
