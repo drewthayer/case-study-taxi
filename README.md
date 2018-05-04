@@ -110,7 +110,7 @@ Bash Scripts:
 
 [Bootstrap_EMR](scripts/bootstrap-emr.sh)
   - install anaconda, boto3, pyspark, git
-  
+
 [Launch_cluster](scripts/lauch_cluster.sh)
 
 ## Final Results (Big Data)
@@ -122,11 +122,11 @@ _**Actually ran locally to...**_
 Model: **Linear Regression**
 
 *Train:*
-prediction|fare_amount
+|prediction|fare_amount|
 ----------|----------
-12.90|        6.0
-11.67|        7.0
-12.99|        9.0
+|12.90|        6.0|
+|11.67|        7.0|
+|12.99|        9.0|
 
 only showing top 3 rows
 
