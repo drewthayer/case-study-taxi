@@ -7,14 +7,10 @@ from pyspark.ml.regression import LinearRegression
 from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.sql import functions as F
 from pyspark.sql import types
+import pyspark as ps
+import boto3
 
-import pyspark
-spark = pyspark.sql.SparkSession.builder \
-            .master("local[2]") \
-            .appName("SQL Lecture") \
-            .getOrCreate()
-
-sqlContext = SQLContext(sc)
+spark = ps.sql.SparkSession.builder.master('local').appName('caseStudy').getOrCreate()
 
 def cast_to_float(df):
     df.registerTempTable('df')
@@ -55,7 +51,9 @@ def create_trip_time(df):
     return df.withColumn("trip_time", timeDiff)
 
 def load_file():
+    #s3 = boto3.client('3')
     bucket = 'nyc-tlc'
+    #all_objects = s3.list_objects(Bucket = bucket)
     year_list = ['2015']
     month_list = ['05']
     first = True
@@ -64,13 +62,13 @@ def load_file():
             key_yellow =  f'trip data/yellow_tripdata_{year}-{month}.csv'
             file = f's3a://{bucket}/{key_yellow}'
             if first:
-                df = sqlContext.read.load(file,
+                df = spark.read.load(file,
                                       format='com.databricks.spark.csv',
                                       header='true',
                                       inferSchema='true')
                 first = False
             else:
-                df = df.join(sqlContext.read.load(file,
+                df = df.join(spark.read.load(file,
                                       format='com.databricks.spark.csv',
                                       header='true',
                                       inferSchema='true'))
