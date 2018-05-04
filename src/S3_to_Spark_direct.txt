@@ -1,0 +1,1 @@
+df = spark.read.load("s3a://nyc-tlc/trip data/yellow_tripdata_2015-10.csv", format="csv", sep=",", inferSchema="true", header="true")
