@@ -1,7 +1,7 @@
 import pyspark as ps
 from pyspark.sql.functions import *
-from pyspark.ml.classification import NaiveBayes
-from pyspark.ml.feature import OneHotEncoder,VectorAssembler
+#from pyspark.ml.classification import NaiveBayes
+from pyspark.ml.feature import OneHotEncoder, VectorAssembler, StringIndexer
 from pyspark.ml import Pipeline
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml.evaluation import RegressionEvaluator
