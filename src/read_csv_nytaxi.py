@@ -1,8 +1,6 @@
 import boto3
 import pyspark as ps
 
-%matplotlib inline
-
 spark = ps.sql.SparkSession.builder.master("local")\
                                     .appName("casestudy-taxi")\
                                     .getOrCreate()
