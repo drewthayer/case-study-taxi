@@ -1,10 +1,5 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
+import boto3
 import pyspark as ps
-from pyspark.ml.feature import StringIndexer, OneHotEncoder, VectorAssembler, Imputer
-from pyspark.ml import Pipeline
-from pyspark.ml.regression import RandomForestRegressor
 
 %matplotlib inline
 
