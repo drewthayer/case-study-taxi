@@ -11,6 +11,8 @@ import pyspark as ps
 import boto3
 
 spark = ps.sql.SparkSession.builder.master('local').appName('caseStudy').getOrCreate()
+sc = spark.sparkContext
+sc.setLogLevel('ERROR')
 
 def cast_to_float(df):
     df.registerTempTable('df')
@@ -39,6 +41,7 @@ def cast_to_float(df):
            df
         WHERE
            fare_amount IS NOT NULL
+        LIMIT 10000
         '''
     return spark.sql(select_and_cast)
 
@@ -61,8 +64,7 @@ def load_file():
             key_yellow =  f'trip data/yellow_tripdata_{year}-{month}.csv'
             file = f's3a://{bucket}/{key_yellow}'
             if first:
-                df = spark.read.load(file,
-                                      format='com.databricks.spark.csv',
+                df = spark.read.csv(file,
                                       header='true',
                                       inferSchema='true')
                 first = False
@@ -73,46 +75,40 @@ def load_file():
                                       inferSchema='true'))
     return df
 
-def open_file()
-    df = spark.read.load('yellow_2015-05.csv',
-                      format='com.databricks.spark.csv',
-                      header='true',
-                      inferSchema='true')
 
-#df = load_file()
-df = open_file()
+
+df = load_file()
 df.printSchema()
-
-df_2015 = cast_to_float(create_trip_time(df))
-df_2015.printSchema()
-
-
-encode_columns = ['month', 'dayofweek', 'RateCodeID', 'payment_type']
-non_encoded=['year', 'dayofyear', 'dayofmonth', 'hour', 'minute',
-             'passenger_count', 'trip_distance', 'pickup_longitude',
-             'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude',
-             'trip_time' ]
-indexers = [StringIndexer(inputCol=column, outputCol=column+"_index", handleInvalid="skip") for column in encode_columns]
-encoders = [OneHotEncoder(inputCol=column+"_index", outputCol= column+"_encoder", dropLast=False) for column in encode_columns]
-assembler = VectorAssembler(inputCols=[encoder.getOutputCol() for encoder in encoders]+non_encoded, outputCol='features')
-lin_reg_mod = LinearRegression(featuresCol = 'features', labelCol='fare_amount')
-
-
-train, test = df_2015.randomSplit([.7,.3])
-pipeline = Pipeline(stages=indexers+encoders + [assembler, lin_reg_mod])
-model = pipeline.fit(train)
-
-train_prediction = model.transform(train)
-test_prediction = model.transform(test)
-train_prediction.show(3)
-test_prediction.show(3)
-
-
-train_predictionAndLabels = train_prediction.select("prediction", "fare_amount")
-test_predictionAndLabels = test_prediction.select("prediction", "fare_amount")
-train_predictionAndLabels.show(3)
-test_predictionAndLabels.show(3)
-
-evaluator = RegressionEvaluator(labelCol="fare_amount", predictionCol = "prediction", metricName = "rmse")
-print("Train RMSE: {}".format(evaluator.evaluate(train_predictionAndLabels)))
-print("Test RMSE: {}".format(evaluator.evaluate(test_predictionAndLabels)))
+#
+# df_2015 = cast_to_float(create_trip_time(df))
+# df_2015.printSchema()
+#
+#
+# encode_columns = ['month', 'dayofweek', 'RateCodeID', 'payment_type']
+# non_encoded=['year', 'dayofyear', 'dayofmonth', 'hour', 'minute',
+#              'passenger_count', 'trip_distance', 'pickup_longitude',
+#              'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude',
+#              'trip_time' ]
+# encoders = [OneHotEncoder(inputCol=column, outputCol=column+'_encoder', dropLast=False) for column in encode_columns]
+# assembler = VectorAssembler(inputCols=[encoder.getOutputCol() for encoder in encoders]+non_encoded, outputCol='features')
+# lin_reg_mod = LinearRegression(featuresCol = 'features', labelCol='fare_amount')
+#
+#
+# train, test = df_2015.randomSplit([.7,.3])
+# pipeline = Pipeline(stages=encoders + [assembler, lin_reg_mod])
+# model = pipeline.fit(train)
+#
+# train_prediction = model.transform(train)
+# test_prediction = model.transform(test)
+# train_prediction.show(3)
+# test_prediction.show(3)
+#
+#
+# train_predictionAndLabels = train_prediction.select("prediction", "fare_amount")
+# test_predictionAndLabels = test_prediction.select("prediction", "fare_amount")
+# train_predictionAndLabels.show(3)
+# test_predictionAndLabels.show(3)
+#
+# evaluator = RegressionEvaluator(labelCol="fare_amount", predictionCol = "prediction", metricName = "rmse")
+# print("Train RMSE: {}".format(evaluator.evaluate(train_predictionAndLabels)))
+# print("Test RMSE: {}".format(evaluator.evaluate(test_predictionAndLabels)))
