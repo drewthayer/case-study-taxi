@@ -1,5 +1,7 @@
 # NYC Taxi Case Study
 
+![taxi](figs/taxi.jpeg)
+
 **MVP:** Get a spark linear regression model, utilizing pipelines, trained and tested on an EMR cluster.
 
 **Experimental Question:** Using New York City Taxi and Limousine Commission (TLC) Trip Record Data can we predict trip fares?
@@ -47,14 +49,16 @@ The yellow and green taxi trip records include fields capturing pick-up and drop
 **How we decided what question to answer**
 - During our EDA we decided to predict total price to preserve as many features as possible to keep our model as adaptable as possible to future iterations if other questions needed to be answered.
 
-![Top_five_rows](figs/####.png)
-![Correlation_Heat_Map](figs/###.png)
+![Top_five_rows](figs/tablepart1-a.png)
+![Top_five_rows](figs/tablepart2-a.png)
+![Correlation_Heat_Map](figs/corr_heatmap.png)
+![Pickup_scatter](figs/pickup_log10.png)
+![Dropoff_scatter](figs/dropoff_log10.png)
 ![Heat_Map_Pickups](figs/rides_pickup_heatmap.png)
 ![Heat_Map_Dropoffs](figs/rides_dropoff_heatmap.png)
+![Fares_hist](figs/fares_hist.png)
 
 ## Feature Engineering
-
-[Code_Link][######.py]
 
 - Created trip duration feature from pickup and dropoff times
 - Split datetime feature of **pickup time** into component parts
@@ -95,6 +99,9 @@ prediction | fare_amount
 
 ## Cloud Model
 
+
+
+
 ## Final Results (Big Data)
 
 _Model: **Linear Regression**_
@@ -112,41 +119,23 @@ prediction | fare_amount
 
 **UODATE ABOVE**
 
+_Model: **Random Forests**_
+  - EMR Cluster
+  - Default parameters, no regularization
+- Results
+  - Train RMSE: 5.15
+  - Test RMSE: 3.79
+
+prediction | fare_amount
+----------|-----------
+11.41|       11.0
+8.44|        8.0
+13.68|       12.5
+
+**UODATE ABOVE**
+
+[Code_Link](src/linear_mod_taxi_amount.py.py)
 
 
-# Questions Answered
-
-2. How you organized yourselves as a team
-  - First we all created individual Jupyspark notebooks to perform basic EDA
-  - Alex and Amelia: Created a local spark model
-  - Sean and Drew: Created visualizations and booted up the EMR Cluster on the AWS mainframe
-3. How you accessed the data
-  - We accessed the data by reading from s3 bucket
-6. Things learned along the way
+**Things learned along the way**
   - The devil is in the details! Or maybe the details are the devil...
-
-
-
-
-## Team Responsibilities
-
-Alex and Amelia:
-- local spark model
-- feature engineering and pipeline
-  - datetime objects to trip pickup time and drop off time to trip time
-  - data cleaning by casting and dropping empty rows
-  - pipeline for linear regression
-  - fit
-  - created script to read data from s3 and create spark DataFrame
-
-Sean and Drew:
-- Visualizations
-- EMR instance
-    - with launch_cluster.sh and modified bootstrap.sh to install the following on cluster:
-- installed:
-    - anaconda
-    - git (to get scripts created locally)
-    - boto3
-    - pyspark
-- push scripts up to get then clone down to EMR instance
-- got EMR ready to run scripts
