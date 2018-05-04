@@ -17,7 +17,7 @@ key_yellow = 'trip data/yellow_tripdata_2015-05.csv'
 
 ''' option: Download the file from S3 '''
 try:
-    s3.download_file(bucket, key_yellow, 'yellow_2015_05.csv')
+    s3.download_file(bucket, key_yellow, 'yellow_2015-05.csv')
 except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == '484':
             print('the object does not exist')
