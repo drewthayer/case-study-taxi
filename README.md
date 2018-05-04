@@ -136,6 +136,7 @@ only showing top 3 rows
 | 12.94 |        5.0 |
 | 11.74 |       17.5 |
 | 12.99 |       13.0 |
+
 only showing top 3 rows
 
 **Train RMSE:** 26.32
@@ -150,6 +151,7 @@ Model: **Random Forests**
 |6.97|        5.0|
 | 6.87|        6.0|
 | 8.70|        9.0|
+
 only showing top 3 rows
 
 *Test:*
@@ -159,6 +161,7 @@ only showing top 3 rows
 |7.31|        7.0|
 | 9.80|       10.0|
 |19.70|       21.0|
+
 only showing top 3 rows
 
 *Train RMSE:* 25.20
