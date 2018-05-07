@@ -169,6 +169,11 @@ only showing top 3 rows
 *Train RMSE:* 25.20
 *Test RMSE:* 3.82
 
+From cloud computing, linear model:
+*Train RMSE:* 9.28
+*Test RMSE:* 39.10
+
+
 [Code_Link](src/linear_mod_taxi_amount.py.py)
 
 
