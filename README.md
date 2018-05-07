@@ -11,9 +11,9 @@
 2. Perform basic EDA locally (individually)
 3. Create dataset visualizations (Drew and Sean)
 3. Create local spark job (Alex and Amelia):
-  - Create DataFrame from s3 source
-  - Data cleaning and feature engineering
-  - Train and test to prepare for EMR cluster
+    - Create DataFrame from s3 source
+    - Data cleaning and feature engineering
+    - Train and test to prepare for EMR cluster
 4. Initiate EMR complete with necessary packages and prep for model (Drew and Sean)
 5. Troubleshoot Load our model in and run on full dataset (Amelia and Drew)
 6. Presentation (Alex and Sean)
